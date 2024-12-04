@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model master_games {
+  id           Int     @id @default(autoincrement())
+  white_player Int
+  black_player Int
+  game_status  Boolean
+  game_result  result
+  game         String
+}
+
+model master_users {
+  id           Int      @id @default(autoincrement())
+  username     String
+  userpassword String
+  usermail     String   @unique
+  status       Boolean
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  isLogedIn    Boolean
+  refreshToken String
+}
+
+enum result {
+  WIN
+  LOSE
+  DRAW
+  PROGRESS
+}
